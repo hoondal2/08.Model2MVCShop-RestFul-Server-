@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -144,16 +145,14 @@ public class UserController {
 		System.out.println("/user/checkDuplication : POST");
 		//Business Logic
 		boolean result=userService.checkDuplication(userId);
-		// Model °ú View ¿¬°á
-		model.addAttribute("result", new Boolean(result));
-		model.addAttribute("userId", userId);
 
+		
 		return "forward:/user/checkDuplication.jsp";
 	}
 
 	
 	@RequestMapping( value="listUser" )
-	public String listUser( @ModelAttribute("search") Search search , Model model) throws Exception{
+	public String listUser( @ModelAttribute("search") Search search , Model model, HttpRequest request) throws Exception{
 		
 		System.out.println("/user/listUser : GET / POST");
 		
